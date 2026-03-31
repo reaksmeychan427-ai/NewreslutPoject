@@ -18,13 +18,12 @@
 using namespace tabulate;
 
 #define RESET   "\033[0m"
-#define GREEN   "\033[32m"
-#define CYAN    "\033[36m"
-#define YELLOW  "\033[33m"
-#define MAGENTA "\033[35m"
-#define RED     "\033[31m"
+#define GREEN   "\033[92m"
+#define CYAN    "\033[96m"
+#define YELLOW  "\033[93m"
+#define MAGENTA "\033[95m"
+#define RED     "\033[91m"
 #define BOLD    "\033[1m"
-
 void enableANSI() {
 #ifdef _WIN32
     system("chcp 65001 > nul");
@@ -196,7 +195,7 @@ void printLoginMenu() {
     std::cout << GREEN << BOLD;
     std::cout << "\n" << pad << "####################################################\n";
     std::cout << pad << "#                                                  #\n";
-    std::cout << pad << "#          >>>  SELECT LOGIN OPTION  <<<           #\n";
+    std::cout << pad << "#    ✨ >>> 🔐 SELECT LOGIN OPTION 🔐 <<< ✨       #\n";
     std::cout << pad << "#                                                  #\n";
     std::cout << pad << "####################################################\n\n";
     std::cout << RESET;

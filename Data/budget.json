@@ -1,4 +1,24 @@
 {
+  "Reaksa": {
+    "transactions": [
+      {
+        "amount": 400.0,
+        "category": "Travel",
+        "date": "2026-03-31",
+        "id": 2,
+        "note": "Moto",
+        "type": "expense"
+      },
+      {
+        "amount": 300.0,
+        "category": "Rent",
+        "date": "2026-04-02",
+        "id": 3,
+        "note": "room",
+        "type": "expense"
+      }
+    ]
+  },
   "Reaksmey": {
     "transactions": [
       {
@@ -32,6 +52,26 @@
         "id": 4,
         "note": "Roomrent",
         "type": "expense"
+      }
+    ]
+  },
+  "Ryna": {
+    "transactions": [
+      {
+        "amount": 2000.0,
+        "category": "Travel",
+        "date": "2026-04-02",
+        "id": 2,
+        "note": "Canada",
+        "type": "expense"
+      },
+      {
+        "amount": 3000.0,
+        "category": "Salary",
+        "date": "2026-04-20",
+        "id": 1,
+        "note": "Freelance",
+        "type": "income"
       }
     ]
   },

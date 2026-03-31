@@ -66,7 +66,7 @@ std::chrono::system_clock::time_point BudgetManager::parseDate(const std::string
 // =============================================
 void BudgetManager::addTransaction() {
     if (readOnly) {
-        std::cout << "\n  " << RED << BOLD << "[!] Guest mode is read-only." << RST << "\n";
+        std::cout << "\n  " << RED << BOLD << "⚠️  Guest mode is read-only." << RST << "\n";
         return;
     }
 
@@ -86,7 +86,7 @@ void BudgetManager::addTransaction() {
 
     std::cout << pad << "Amount ($): ";
     while (!(std::cin >> t.amount) || t.amount <= 0) {
-        std::cout << pad << RED << "[!] Enter a valid positive amount: " << RST;
+        std::cout << pad << RED << "⚠️  Enter a valid positive amount: " << RST;
         std::cin.clear(); std::cin.ignore(256, '\n');
     }
     std::cin.ignore();
@@ -101,7 +101,7 @@ void BudgetManager::addTransaction() {
         t.date = std::chrono::system_clock::from_time_t(std::mktime(&tm));
     } else {
         t.date = std::chrono::system_clock::now();
-        std::cout << pad << RED << "[!] Invalid date. Using today." << RST << "\n";
+        std::cout << pad << RED << "⚠️  Invalid date. Using today." << RST << "\n";
     }
 
     std::cout << pad << "Note (Enter to skip): ";
@@ -121,7 +121,7 @@ void BudgetManager::viewTransactions(const std::string& filterMonth,
                                       const std::string& filterCategory,
                                       const std::string& filterType) {
     if (transactions.empty()) {
-        std::cout << "\n  " << RED << BOLD << "[!] No transactions found." << RST << "\n";
+        std::cout << "\n  " << RED << BOLD << "⚠️  No transactions found." << RST << "\n";
         return;
     }
 
@@ -140,7 +140,7 @@ void BudgetManager::viewTransactions(const std::string& filterMonth,
     }
 
     if (filtered.empty()) {
-        std::cout << "\n  " << RED << BOLD << "[!] No transactions match filter." << RST << "\n";
+        std::cout << "\n  " << RED << BOLD << "⚠️  No transactions match filter." << RST << "\n";
         return;
     }
 
@@ -239,7 +239,7 @@ void BudgetManager::filterMenu() {
 // =============================================
 void BudgetManager::monthlySummary() {
     if (transactions.empty()) {
-        std::cout << "\n  " << RED << BOLD << "[!] No transactions to summarize." << RST << "\n";
+        std::cout << "\n  " << RED << BOLD << "⚠️  No transactions to summarize." << RST << "\n";
         return;
     }
 
@@ -327,7 +327,7 @@ void BudgetManager::monthlySummary() {
 // =============================================
 void BudgetManager::categoryBreakdown() {
     if (transactions.empty()) {
-        std::cout << "\n  " << RED << BOLD << "[!] No transactions found." << RST << "\n";
+        std::cout << "\n  " << RED << BOLD << "⚠️  No transactions found." << RST << "\n";
         return;
     }
 
@@ -343,7 +343,7 @@ void BudgetManager::categoryBreakdown() {
         }
     }
 
-    if (totalExpense == 0) { std::cout << "\n  " << RED << "[!] No expenses found." << RST << "\n"; return; }
+    if (totalExpense == 0) { std::cout << "\n  " << RED << "⚠️  No expenses found." << RST << "\n"; return; }
 
     std::vector<std::pair<std::string, double>> sorted(catMap.begin(), catMap.end());
     std::sort(sorted.begin(), sorted.end(),
@@ -422,22 +422,22 @@ void BudgetManager::checkWarnings() {
     for (auto& p : expenseMap) {
         double inc = incomeMap.count(p.first) ? incomeMap[p.first] : 0;
         if (p.second > inc) {
-            if (!warned) { std::cout << "\n" << wpad << RED << BOLD << "!! WARNING !!" << RST << "\n"; warned = true; }
-            std::cout << wpad << RED << "[!] " << p.first
+            if (!warned) { std::cout << "\n" << wpad << RED << BOLD << "⚠️  WARNING " << RST << "\n"; warned = true; }
+            std::cout << wpad << RED << " " << p.first
                       << ": Expenses ($" << std::fixed << std::setprecision(2) << p.second
                       << ") exceed Income ($" << inc << ")!" << RST << "\n";
         }
     }
     if (!warned && !transactions.empty())
-        std::cout << "\n" << wpad << GRN << BOLD << "[OK] Budget is on track!" << RST << "\n";
+        std::cout << "\n" << wpad << GRN << BOLD << "✅  Budget is on track!" << RST << "\n";
 }
 
 // =============================================
 //  Edit transaction
 // =============================================
 void BudgetManager::editTransaction() {
-    if (readOnly) { std::cout << "\n  " << RED << "[!] Guest mode is read-only." << RST << "\n"; return; }
-    if (transactions.empty()) { std::cout << "\n  " << RED << "[!] No transactions to edit." << RST << "\n"; return; }
+    if (readOnly) { std::cout << "\n  " << RED << "⚠️ Guest mode is read-only." << RST << "\n"; return; }
+    if (transactions.empty()) { std::cout << "\n  " << RED << "⚠️ No transactions to edit." << RST << "\n"; return; }
 
     viewTransactions();
     std::string epad = cp(40);
@@ -446,7 +446,7 @@ void BudgetManager::editTransaction() {
 
     auto it = std::find_if(transactions.begin(), transactions.end(),
         [id](const Transaction& t) { return t.id == id; });
-    if (it == transactions.end()) { std::cout << "  " << RED << "[!] ID not found." << RST << "\n"; return; }
+    if (it == transactions.end()) { std::cout << "  " << RED << "⚠️ ID not found." << RST << "\n"; return; }
 
     std::cout << "\n" << epad << CYN << "--- Edit Transaction (ID: " << id << ") ---" << RST << "\n";
     std::cout << epad << "Leave blank to keep current value.\n\n";
@@ -541,7 +541,7 @@ void BudgetManager::save(const User& user) {
     if (!outFile) { std::cout << "  " << RED << "[!] Could not save." << RST << "\n"; return; }
     outFile << root.dump(2);
     outFile.close();
-    std::cout << "  " << GRN << BOLD << "[+] Saved! (user: " << user.username << ")" << RST << "\n";
+    std::cout << "  " << GRN << BOLD << "📥  Saved! (user: " << user.username << ")" << RST << "\n";
 }
 
 // =============================================
